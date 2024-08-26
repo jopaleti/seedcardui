@@ -12,6 +12,7 @@ interface WalletContextType {
   words: string[];
   data: any; // Adjust type based on expected data
   msg: string;
+  hidden_words: string;
   useFetchXpub: (url: string, password: string) => Promise<string>;
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
@@ -32,6 +33,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const [words, setWords] = useState<string>("");
   const [data, setData] = useState<Record<string, any>>({});
   const [msg, setMsg] = useState<string>("");
+  const [hidden_words, setHiddenWords] = useState<string>("");
 
   const useFetchXpub = async (url: string, password: string) => {
     // const [xpub_qr, setXpub_qr] = useState("");
@@ -78,32 +80,41 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
     return data;
   };
 
-  const useFetchRandomise = async (url: string, password: string, words: string[]) => {
+  const useFetchRandomise = async (
+    url: string,
+    password: string,
+    words: string[]
+  ) => {
     // const [msg, setMsg] = useState("");
     setLoading(true);
-      try {
-        const data: any = {
-          words: words,
-        };
+    try {
+      const data: any = {
+        words: words,
+      };
       const res = await axios.post(url, data, {
         headers: {
           Authorization: `${password}`,
         },
       });
       setMsg(res.data.msg);
+      setHiddenWords(res.data.hidden_words);
     } catch (error) {
       setErr(true);
     }
     setLoading(false);
   };
 
-  const useFetchGenerateWalletQr = async (url: string, password: string, wallet_name: string) => {
+  const useFetchGenerateWalletQr = async (
+    url: string,
+    password: string,
+    wallet_name: string
+  ) => {
     // const [wallet_qr, setWalletQr] = useState("");
     setLoading(true);
-      try {
-        const data: any = {
-          wallet_name: wallet_name,
-        };
+    try {
+      const data: any = {
+        wallet_name: wallet_name,
+      };
       const res = await axios.post(url, data, {
         headers: {
           Authorization: `${password}`,
@@ -128,6 +139,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         data,
         msg,
         words,
+        hidden_words,
         useFetchXpub,
         useFetchNewallet,
         useFetchRandomise,

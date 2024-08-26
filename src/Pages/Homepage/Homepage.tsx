@@ -6,6 +6,7 @@ import { useWalletContext } from "../../Context/walletContext";
 function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
+  const [cardissuer, setCardIssuer] = useState("");
   const url: any = "https://walletqrgenerator.onrender.com";
   const {
     wallet_qr,
@@ -13,6 +14,7 @@ function Homepage() {
     words,
     data,
     msg,
+    hidden_words,
     useFetchXpub,
     useFetchNewallet,
     useFetchRandomise,
@@ -24,16 +26,18 @@ function Homepage() {
   };
 
   const Getxpub = async () => {
-    if (password == "") return alert("Password is required");
+    if (password == "" || cardissuer.length == 0)
+      return alert("Password is required");
     await useFetchXpub(`${url}/xpub`, password);
   };
   const GenerateSeed = async () => {
-    if (password == "") return alert("Password is required");
+    if (password == "" || cardissuer.length == 0)
+      return alert("Password is required");
     await useFetchNewallet(`${url}/generatewallet`, password, words);
     console.log(data);
   };
   const Generateqr = async () => {
-    if (password == "" || walletName.length != 16)
+    if (password == "" || walletName.length != 16 || cardissuer.length == 0)
       return alert(
         "Password is required or wallet name should be 16 characters"
       );
@@ -45,7 +49,8 @@ function Homepage() {
   };
 
   const GetRandomise = async () => {
-    if (password == "") return alert("Password is required");
+    if (password == "" || cardissuer.length == 0)
+      return alert("Password is required");
     await useFetchRandomise(`${url}/randomise`, password, words);
   };
 
@@ -56,14 +61,19 @@ function Homepage() {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4 _card_flex">
             <h1 className="text-white">ENTER CARD ISSUER</h1>
-            <input type="text" className="px-3 py-2 outline-none _card_iss" placeholder="XX" />
+            <input
+              onChange={(e) => setCardIssuer(e.target.value)}
+              type="text"
+              className="px-3 py-2 outline-none _card_iss"
+              placeholder="XX"
+            />
           </div>
           <div className="flex items-center gap-4 _card_flex">
             <h1 className="text-white">ENTER PASSWORD</h1>
             <input
               required
-                          type="text"
-                        placeholder="XXXXXX"
+              type="text"
+              placeholder="XXXXXX"
               onChange={(e) => setPassword(e.target.value)}
               className="px-3 py-2 outline-none _card_iss"
             />
@@ -121,8 +131,8 @@ function Homepage() {
         <div className="flex items-center justify-between mt-8 _wallet_nme">
           <h1 className="text-white">ENTER WALLET NAME</h1>
           <input
-                      type="text"
-                      placeholder="XX04A6787A4F1390"
+            type="text"
+            placeholder="XX04A6787A4F1390"
             onChange={(e) => setWalletName(e.target.value)}
             className="px-3 py-2 outline-none _wallet_name"
           />
@@ -196,7 +206,8 @@ function Homepage() {
         {/* RETURN MESSAGE */}
         <div className="mt-16 flex flex-col gap-6 items-center justify-center">
           <input
-            type="text"
+                      type="text"
+                      value={`${!data.fingerprint1 || cardissuer == "" || hidden_words == "" ? "" : data.fingerprint1+"_"+cardissuer+"_"+hidden_words}`}
             className="w-full p-4"
             placeholder=" 39a103a7_MM_ decembermotheropenarchoxygeneternal
 "
