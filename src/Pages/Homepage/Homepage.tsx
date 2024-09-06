@@ -310,6 +310,42 @@ function Homepage() {
           </div>
         </div>
 
+        {/* PATTERN SEED QR */}
+        <div className="flex justify-between items-center mt-8">
+          <h1>VERIFICATION URL</h1>
+          <div className="flex items-center gap-10 _qr_flex">
+            <button>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
+            </button>
+            <div
+              style={{ width: "150px", height: "150px" }}
+              className="bg-white"
+            >
+              {/* <img
+                src={`${
+                  wallet_qr == "" || undefined
+                    ? "qr.png"
+                    : `data:image/png;base64,${wallet_qr}`
+                }`}
+                alt="qr.png"
+                className="h-full w-full"
+              /> */}
+              <img src="img.png" alt="img.png" />
+            </div>
+          </div>
+        </div>
+
         {/* RANDOMISATION */}
         {/* <div className="flex justify-between items-center mt-8">
           <h1>RANDOMISATION</h1>
