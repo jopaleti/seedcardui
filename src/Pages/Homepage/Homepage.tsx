@@ -13,11 +13,11 @@ function Homepage() {
     xpub_qr,
     words,
     data,
-    msg,
-    hidden_words,
+    // msg,
+    // hidden_words,
     useFetchXpub,
     useFetchNewallet,
-    useFetchRandomise,
+    // useFetchRandomise,
     useFetchGenerateWalletQr,
   } = useWalletContext();
 
@@ -48,11 +48,11 @@ function Homepage() {
     );
   };
 
-  const GetRandomise = async () => {
-    if (password == "" || cardissuer.length == 0)
-      return alert("Password is required");
-    await useFetchRandomise(`${url}/randomise`, password, words);
-  };
+  // const GetRandomise = async () => {
+  //   if (password == "" || cardissuer.length == 0)
+  //     return alert("Password is required");
+  //   await useFetchRandomise(`${url}/randomise`, password, words);
+  // };
 
   return (
     <div className="_homepage bg-black pb-10">
@@ -81,10 +81,21 @@ function Homepage() {
         </div>
         {/* XPUBQR */}
         <div className="flex justify-between items-center mt-14">
-          <h1>GENERATE XPUB QR</h1>
+          <h1>CARD XPUB QR</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={Getxpub}>
-              <div className="h-10 w-10 rounded-full bg-green-500"></div>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
             </button>
             <div
               style={{ width: "150px", height: "150px" }}
@@ -105,10 +116,21 @@ function Homepage() {
 
         {/* SEEDQR */}
         <div className="flex justify-between items-center mt-8">
-          <h1>GENERATE SEEDQR</h1>
+          <h1>CARD SEEDQR</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={GenerateSeed}>
-              <div className="h-10 w-10 rounded-full bg-green-500"></div>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
             </button>
             <div
               style={{ width: "150px", height: "150px" }}
@@ -129,7 +151,7 @@ function Homepage() {
 
         {/* WALLET NAME */}
         <div className="flex items-center justify-between mt-8 _wallet_nme">
-          <h1 className="text-white">ENTER WALLET NAME</h1>
+          <h1 className="text-white">ENTER CARD NAME</h1>
           <input
             type="text"
             placeholder="XX04A6787A4F1390"
@@ -139,10 +161,21 @@ function Homepage() {
         </div>
         {/* GENERATE WALLETQR */}
         <div className="flex justify-between items-center mt-8">
-          <h1>GENERATE WALLET NAME QR</h1>
+          <h1>CARD NAME QR</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={Generateqr}>
-              <div className="h-10 w-10 rounded-full bg-green-500"></div>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
             </button>
             <div
               style={{ width: "150px", height: "150px" }}
@@ -172,7 +205,7 @@ function Homepage() {
               className="px-3 py-4 outline-none _card_iss"
               placeholder=""
             />
-            <h1>FINGERPRINT 1</h1>
+            <h1>FINGERPRINT P</h1>
           </div>
           <div className="flex flex-col gap-4 items-center justify-center">
             <input
@@ -183,16 +216,117 @@ function Homepage() {
               className="px-3 py-4 outline-none _card_iss"
               placeholder=""
             />
-            <h1>FINGERPRINT 2</h1>
+            <h1>FINGERPRINT C</h1>
+          </div>
+        </div>
+
+        {/* PATTERN SEED QR */}
+        <div className="flex justify-between items-center mt-8">
+          <h1>PATTERN SEED QR</h1>
+          <div className="flex items-center gap-10 _qr_flex">
+            <button>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
+            </button>
+            <div
+              style={{ width: "150px", height: "150px" }}
+              className="bg-white"
+            >
+              <img
+                src={`${
+                  wallet_qr == "" || undefined
+                    ? "qr.png"
+                    : `data:image/png;base64,${wallet_qr}`
+                }`}
+                alt="qr.png"
+                className="h-full w-full"
+              />
+            </div>
           </div>
         </div>
 
         {/* RANDOMISATION */}
-        <div className="flex justify-between items-center mt-8">
+        <div className=" mt-8">
+          {/* <h1>PATTERN SEED QR</h1> */}
+          <div className="flex items-center justify-between gap-10 _qr_flex">
+            <div className="flex flex-col items-center justify-center gap-8">
+              <div
+                style={{ width: "150px", height: "150px" }}
+                className="bg-white"
+              >
+                <img
+                  src={`${
+                    wallet_qr == "" || undefined
+                      ? "qr.png"
+                      : `data:image/png;base64,${wallet_qr}`
+                  }`}
+                  alt="qr.png"
+                  className="h-full w-full"
+                />
+              </div>
+              <h1>OP_RETURN PAYMENT</h1>
+            </div>
+            <button>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
+            </button>
+            <div className="flex flex-col items-center justify-center gap-8">
+              <div
+                style={{ width: "150px", height: "150px" }}
+                className="bg-white"
+              >
+                <img
+                  src={`${
+                    wallet_qr == "" || undefined
+                      ? "qr.png"
+                      : `data:image/png;base64,${wallet_qr}`
+                  }`}
+                  alt="qr.png"
+                  className="h-full w-full"
+                />
+              </div>
+              <h1>OP_RETURN TX</h1>
+            </div>
+          </div>
+        </div>
+
+        {/* RANDOMISATION */}
+        {/* <div className="flex justify-between items-center mt-8">
           <h1>RANDOMISATION</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={GetRandomise}>
-              <div className="h-10 w-10 rounded-full bg-green-500"></div>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
             </button>
             <input
               type="text"
@@ -201,24 +335,39 @@ function Homepage() {
               placeholder="3 / 11 / 12 / 2 / 1 / 10"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* RETURN MESSAGE */}
-        <div className="mt-16 flex flex-col gap-6 items-center justify-center">
+        {/* <div className="mt-16 flex flex-col gap-6 items-center justify-center">
           <input
-                      type="text"
-                      value={`${!data.fingerprint1 || cardissuer == "" || hidden_words == "" ? "" : data.fingerprint1+"_"+cardissuer+"_"+hidden_words}`}
+            type="text"
+            value={`${
+              !data.fingerprint1 || cardissuer == "" || hidden_words == ""
+                ? ""
+                : data.fingerprint1 + "_" + cardissuer + "_" + hidden_words
+            }`}
             className="w-full p-4"
             placeholder=" 39a103a7_MM_ decembermotheropenarchoxygeneternal
 "
           />
           <h1>OP_RETURN MESSAGE</h1>
-        </div>
+        </div> */}
 
         {/* RESTART BUTTON BOTTOM */}
         <div className="mt-20 flex flex-col gap-6 justify-center items-center">
           <button onClick={handleReload}>
-            <div className="h-10 w-10 rounded-full bg-green-500"></div>
+            <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="black"
+                className="bi bi-caret-up-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+              </svg>
+            </div>
           </button>
           <h1>RESTART</h1>
         </div>
