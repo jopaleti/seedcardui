@@ -258,7 +258,7 @@ function Homepage() {
         {/* RANDOMISATION */}
         <div className=" mt-8">
           {/* <h1>PATTERN SEED QR</h1> */}
-          <div className="flex items-center justify-between gap-10 _qr_flex">
+          <div className="flex items-stretch justify-between gap-10 _qr_flex">
             <div className="flex flex-col items-center justify-center gap-8">
               <div
                 style={{ width: "150px", height: "150px" }}

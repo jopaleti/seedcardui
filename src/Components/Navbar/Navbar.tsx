@@ -7,7 +7,7 @@ function Navbar() {
       <div className="_navbar_container">
         <div className="flex justify-between items-center py-6">
           <img src={seed} alt="logo.png" className="h-14 w-auto" />
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
             <h1 className="text-white">WALLET GENERATOR v1.0</h1>
             <button>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
