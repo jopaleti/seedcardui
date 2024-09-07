@@ -96,7 +96,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
           Authorization: `${password}`,
         },
       });
-      setMsg(res.data.msg);
+      setMsg(res.data.img_randomised);
       setHiddenWords(res.data.hidden_words);
     } catch (error) {
       setErr(true);

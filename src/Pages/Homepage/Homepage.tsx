@@ -13,11 +13,11 @@ function Homepage() {
     xpub_qr,
     words,
     data,
-    // msg,
+    msg,
     // hidden_words,
     useFetchXpub,
     useFetchNewallet,
-    // useFetchRandomise,
+    useFetchRandomise,
     useFetchGenerateWalletQr,
   } = useWalletContext();
 
@@ -48,11 +48,11 @@ function Homepage() {
     );
   };
 
-  // const GetRandomise = async () => {
-  //   if (password == "" || cardissuer.length == 0)
-  //     return alert("Password is required");
-  //   await useFetchRandomise(`${url}/randomise`, password, words);
-  // };
+  const GetRandomise = async () => {
+    if (password == "" || cardissuer.length == 0)
+      return alert("Password is required");
+    await useFetchRandomise(`${url}/randomise`, password, words);
+  };
 
   return (
     <div className="_homepage bg-black pb-10">
@@ -79,6 +79,18 @@ function Homepage() {
             />
           </div>
         </div>
+
+        {/* WALLET NAME */}
+        <div className="flex items-center justify-between mt-8 _wallet_nme">
+          <h1 className="text-white">ENTER CARD NAME</h1>
+          <input
+            type="text"
+            placeholder="XX04A6787A4F1390"
+            onChange={(e) => setWalletName(e.target.value)}
+            className="px-3 py-2 outline-none _wallet_name"
+          />
+        </div>
+
         {/* XPUBQR */}
         <div className="flex justify-between items-center mt-14">
           <h1>CARD XPUB QR</h1>
@@ -149,16 +161,6 @@ function Homepage() {
           </div>
         </div>
 
-        {/* WALLET NAME */}
-        <div className="flex items-center justify-between mt-8 _wallet_nme">
-          <h1 className="text-white">ENTER CARD NAME</h1>
-          <input
-            type="text"
-            placeholder="XX04A6787A4F1390"
-            onChange={(e) => setWalletName(e.target.value)}
-            className="px-3 py-2 outline-none _wallet_name"
-          />
-        </div>
         {/* GENERATE WALLETQR */}
         <div className="flex justify-between items-center mt-8">
           <h1>CARD NAME QR</h1>
@@ -224,7 +226,7 @@ function Homepage() {
         <div className="flex justify-between items-center mt-8">
           <h1>PATTERN SEED QR</h1>
           <div className="flex items-center gap-10 _qr_flex">
-            <button>
+            <button onClick={GetRandomise}>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -244,9 +246,9 @@ function Homepage() {
             >
               <img
                 src={`${
-                  wallet_qr == "" || undefined
+                  msg == "" || undefined
                     ? "qr.png"
-                    : `data:image/png;base64,${wallet_qr}`
+                    : `data:image/png;base64,${msg}`
                 }`}
                 alt="qr.png"
                 className="h-full w-full"
@@ -264,7 +266,7 @@ function Homepage() {
                 style={{ width: "150px", height: "150px" }}
                 className="bg-white"
               >
-                <img
+                {/* <img
                   src={`${
                     wallet_qr == "" || undefined
                       ? "qr.png"
@@ -272,7 +274,8 @@ function Homepage() {
                   }`}
                   alt="qr.png"
                   className="h-full w-full"
-                />
+                /> */}
+                <img src="" alt="qr.png" />
               </div>
               <h1>OP_RETURN PAYMENT</h1>
             </div>
@@ -295,15 +298,16 @@ function Homepage() {
                 style={{ width: "150px", height: "150px" }}
                 className="bg-white"
               >
-                <img
+                {/* <img
                   src={`${
-                    wallet_qr == "" || undefined
+                    msg == "" || undefined
                       ? "qr.png"
-                      : `data:image/png;base64,${wallet_qr}`
+                      : `data:image/png;base64,${msg}`
                   }`}
                   alt="qr.png"
                   className="h-full w-full"
-                />
+                /> */}
+                <img src="" alt="img.png" />
               </div>
               <h1>OP_RETURN TX</h1>
             </div>
@@ -312,7 +316,7 @@ function Homepage() {
 
         {/* PATTERN SEED QR */}
         <div className="flex justify-between items-center mt-8">
-          <h1>VERIFICATION URL</h1>
+          <h1>CARD TEMPLATE URL</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
