@@ -15,6 +15,7 @@ function Homepage() {
     data,
     msg,
     // hidden_words,
+    randomise_fingerprint,
     useFetchXpub,
     useFetchNewallet,
     useFetchRandomise,
@@ -201,7 +202,9 @@ function Homepage() {
           <div className="flex flex-col gap-4 items-center justify-center">
             <input
               value={`${
-                !data.fingerprint1 || undefined ? "" : `${data.fingerprint1}`
+                !randomise_fingerprint || undefined
+                  ? ""
+                  : `${randomise_fingerprint}`
               }`}
               type="text"
               className="px-3 py-4 outline-none _card_iss"

@@ -13,6 +13,7 @@ interface WalletContextType {
   data: any; // Adjust type based on expected data
   msg: string;
   hidden_words: string;
+  randomise_fingerprint: string;
   useFetchXpub: (url: string, password: string) => Promise<string>;
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
@@ -34,6 +35,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const [data, setData] = useState<Record<string, any>>({});
   const [msg, setMsg] = useState<string>("");
   const [hidden_words, setHiddenWords] = useState<string>("");
+  const [randomise_fingerprint, setRandomiseFingerprint] = useState<string>("");
 
   const useFetchXpub = async (url: string, password: string) => {
     // const [xpub_qr, setXpub_qr] = useState("");
@@ -98,6 +100,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
       });
       setMsg(res.data.img_randomised);
       setHiddenWords(res.data.hidden_words);
+      setRandomiseFingerprint(res.data.fingerprint);
     } catch (error) {
       setErr(true);
     }
@@ -140,6 +143,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         msg,
         words,
         hidden_words,
+        randomise_fingerprint,
         useFetchXpub,
         useFetchNewallet,
         useFetchRandomise,
