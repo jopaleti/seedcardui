@@ -7,6 +7,7 @@ interface Props {
 interface WalletContextType {
   loading: boolean;
   err: boolean;
+  url_qr: string;
   wallet_qr: string;
   xpub_qr: string;
   words: string[];
@@ -18,6 +19,7 @@ interface WalletContextType {
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
   useFetchGenerateWalletQr: (url: string, password: string) => Promise<string>;
+  useFetchGenerateUrlQr: (url: string, password: string) => Promise<string>;
   // Add other properties here as needed
 }
 // const WalletContext = createContext<WalletContextType | null>(null);
@@ -29,6 +31,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   // Shared states for all requests
   const [loading, setLoading] = useState<boolean>(false);
   const [err, setErr] = useState<string | boolean>(false);
+  const [url_qr, setUrlQr] = useState<string>("");
   const [wallet_qr, setWalletQr] = useState<string>("");
   const [xpub_qr, setXpub_qr] = useState<string>("");
   const [words, setWords] = useState<string>("");
@@ -132,11 +135,30 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
     // return wallet_qr;
   };
 
+  const useFetchGenerateUrlQr = async (url: string, password: string) => {
+    setLoading(true);
+    try {
+      const data: any = {
+        url: "https://seedcard.github.io/template/",
+      };
+      const res = await axios.post(url, data, {
+        headers: {
+          Authorization: `${password}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setUrlQr(res.data.url_qr);
+    } catch (error) {
+      setErr(true);
+    }
+  }
+
   return (
     <walletContext.Provider
       value={{
         loading,
         err,
+        url_qr,
         wallet_qr,
         xpub_qr,
         data,
@@ -148,6 +170,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         useFetchNewallet,
         useFetchRandomise,
         useFetchGenerateWalletQr,
+        useFetchGenerateUrlQr,
       }}
     >
       {children}

@@ -9,6 +9,7 @@ function Homepage() {
   const [cardissuer, setCardIssuer] = useState("");
   const url: any = "https://walletqrgenerator.onrender.com";
   const {
+    url_qr,
     wallet_qr,
     xpub_qr,
     words,
@@ -20,6 +21,7 @@ function Homepage() {
     useFetchNewallet,
     useFetchRandomise,
     useFetchGenerateWalletQr,
+    useFetchGenerateUrlQr,
   } = useWalletContext();
 
   const handleReload = () => {
@@ -53,6 +55,14 @@ function Homepage() {
     if (password == "" || cardissuer.length == 0)
       return alert("Password is required");
     await useFetchRandomise(`${url}/randomise`, password, words);
+  };
+
+  const GetUrlQr = async () => {
+    if (password == "" || cardissuer.length == 0)
+      return alert(
+        "Password is required or wallet name should be 16 characters"
+      );
+    await useFetchGenerateUrlQr(`${url}/url_qr`, password);
   };
 
   return (
@@ -321,7 +331,7 @@ function Homepage() {
         <div className="flex justify-between items-center mt-8">
           <h1>CARD TEMPLATE URL</h1>
           <div className="flex items-center gap-10 _qr_flex">
-            <button>
+            <button onClick={GetUrlQr}>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -339,16 +349,15 @@ function Homepage() {
               style={{ width: "150px", height: "150px" }}
               className="bg-white"
             >
-              {/* <img
+              <img
                 src={`${
-                  wallet_qr == "" || undefined
+                  url_qr == "" || undefined
                     ? "qr.png"
-                    : `data:image/png;base64,${wallet_qr}`
+                    : `data:image/png;base64,${url_qr}`
                 }`}
                 alt="qr.png"
                 className="h-full w-full"
-              /> */}
-              <img src="img.png" alt="img.png" />
+              />
             </div>
           </div>
         </div>
