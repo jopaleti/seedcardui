@@ -287,23 +287,13 @@ function Homepage() {
         </div>
 
         {/* RANDOMISATION */}
-        <div className=" mt-8">
-          {/* <h1>PATTERN SEED QR</h1> */}
+        {/* <div className=" mt-8">
           <div className="flex items-stretch justify-between gap-10 _qr_flex">
             <div className="flex flex-col items-center justify-center gap-8">
               <div
                 style={{ width: "150px", height: "150px" }}
                 className="bg-white"
               >
-                {/* <img
-                  src={`${
-                    wallet_qr == "" || undefined
-                      ? "qr.png"
-                      : `data:image/png;base64,${wallet_qr}`
-                  }`}
-                  alt="qr.png"
-                  className="h-full w-full"
-                /> */}
                 <img src="" alt="qr.png" />
               </div>
               <h1>OP_RETURN PAYMENT</h1>
@@ -327,21 +317,12 @@ function Homepage() {
                 style={{ width: "150px", height: "150px" }}
                 className="bg-white"
               >
-                {/* <img
-                  src={`${
-                    msg == "" || undefined
-                      ? "qr.png"
-                      : `data:image/png;base64,${msg}`
-                  }`}
-                  alt="qr.png"
-                  className="h-full w-full"
-                /> */}
                 <img src="" alt="img.png" />
               </div>
               <h1>OP_RETURN TX</h1>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* IMAGE RANDOMISATION QR WORDS */}
         <div className="flex justify-between items-center mt-8">
@@ -361,7 +342,24 @@ function Homepage() {
                 </svg>
               </div>
             </button>
-            <div
+            <div className="flex flex-col items-center justify-center gap-8">
+              <div
+                style={{ width: "150px", height: "150px" }}
+                className="bg-white"
+              >
+                <img
+                  src={`${
+                    randomised_qr_words == "" || undefined
+                      ? "qr.png"
+                      : `data:image/png;base64,${randomised_qr_words}`
+                  }`}
+                  alt="qr.png"
+                  className="h-full w-full"
+                />
+              </div>
+              <h1>OP_RETURN MESSAGE</h1>
+            </div>
+            {/* <div
               style={{ width: "150px", height: "150px" }}
               className="bg-white"
             >
@@ -374,7 +372,7 @@ function Homepage() {
                 alt="qr.png"
                 className="h-full w-full"
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
