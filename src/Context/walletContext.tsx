@@ -15,11 +15,13 @@ interface WalletContextType {
   msg: string;
   hidden_words: string;
   randomise_fingerprint: string;
+  randomised_qr_words: string;
   useFetchXpub: (url: string, password: string) => Promise<string>;
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
   useFetchGenerateWalletQr: (url: string, password: string) => Promise<string>;
   useFetchGenerateUrlQr: (url: string, password: string) => Promise<string>;
+  useFetchGenerateRandQrWords: (url: string, password: string) => Promise<string>;
   // Add other properties here as needed
 }
 // const WalletContext = createContext<WalletContextType | null>(null);
@@ -37,6 +39,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const [words, setWords] = useState<string>("");
   const [data, setData] = useState<Record<string, any>>({});
   const [msg, setMsg] = useState<string>("");
+  const [randomised_qr_words, setRandomisedQrWords] = useState<string>("");
   const [hidden_words, setHiddenWords] = useState<string>("");
   const [randomise_fingerprint, setRandomiseFingerprint] = useState<string>("");
 
@@ -153,6 +156,26 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
+  const useFetchGenerateRandQrWords = async (url: string, password: string, fingerprint1: string, cardissuer: string, words: string[]) => {
+    setLoading(true);
+    try {
+      const data: any = {
+        fingerprint1: fingerprint1,
+        cardissuer: cardissuer,
+        words: words,
+      };
+      const res = await axios.post(url, data, {
+        headers: {
+          Authorization: `${password}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setRandomisedQrWords(res.data.img_randomised_qr_words);
+    } catch (error) {
+      setErr(true);
+    }
+  }
+
   return (
     <walletContext.Provider
       value={{
@@ -166,11 +189,13 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         words,
         hidden_words,
         randomise_fingerprint,
+        randomised_qr_words,
         useFetchXpub,
         useFetchNewallet,
         useFetchRandomise,
         useFetchGenerateWalletQr,
         useFetchGenerateUrlQr,
+        useFetchGenerateRandQrWords,
       }}
     >
       {children}
