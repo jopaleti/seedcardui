@@ -342,7 +342,7 @@ function Homepage() {
                 </svg>
               </div>
             </button>
-            <div className="flex flex-col items-center justify-center gap-8">
+            <div className="flex flex-col items-end justify-end gap-8">
               <div
                 style={{ width: "150px", height: "150px" }}
                 className="bg-white"
