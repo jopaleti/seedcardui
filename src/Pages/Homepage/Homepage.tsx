@@ -7,7 +7,8 @@ function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
-  const url: any = "https://walletqrgenerator.onrender.com";
+  // const url: any = "https://walletqrgenerator.onrender.com";
+  const url: any = "http://127.0.0.1:5001";
 
   const {
     url_qr,
@@ -19,6 +20,8 @@ function Homepage() {
     // hidden_words,
     randomised_qr_words,
     randomise_fingerprint,
+    // randomised_qr_words_img,
+    result,
     useFetchXpub,
     useFetchNewallet,
     useFetchRandomise,
@@ -57,7 +60,11 @@ function Homepage() {
   const GetRandomise = async () => {
     if (password == "" || cardissuer.length == 0)
       return alert("Password is required");
-    await useFetchRandomise(`${url}/randomise`, password, words);
+    await useFetchRandomise(
+      `${url}/randomise`,
+      password,
+      words
+    );
   };
 
   const GetUrlQr = async () => {
@@ -72,11 +79,11 @@ function Homepage() {
     if (password == "" || cardissuer.length == 0 || !randomise_fingerprint)
       return alert("Password is required");
     await useFetchGenerateRandQrWords(
-      `${url}/randomise_qr`,
+      `${url}/op_return`,
       password,
       randomise_fingerprint,
       cardissuer,
-      words
+      result
     );
     console.log({ randomised_qr_words: randomised_qr_words });
   };
@@ -326,7 +333,7 @@ function Homepage() {
 
         {/* IMAGE RANDOMISATION QR WORDS */}
         <div className="flex justify-between items-center mt-8">
-          <h1></h1>
+          <h1>OP_RETURN MESSAGE</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={GetRandomisedQrWords}>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
@@ -357,7 +364,6 @@ function Homepage() {
                   className="h-full w-full"
                 />
               </div>
-              <h1>OP_RETURN MESSAGE</h1>
             </div>
             {/* <div
               style={{ width: "150px", height: "150px" }}

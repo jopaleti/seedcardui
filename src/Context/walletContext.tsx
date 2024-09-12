@@ -16,12 +16,17 @@ interface WalletContextType {
   hidden_words: string;
   randomise_fingerprint: string;
   randomised_qr_words: string;
+  result: string;
+  // randomised_qr_words_img: string;
   useFetchXpub: (url: string, password: string) => Promise<string>;
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
   useFetchGenerateWalletQr: (url: string, password: string) => Promise<string>;
   useFetchGenerateUrlQr: (url: string, password: string) => Promise<string>;
-  useFetchGenerateRandQrWords: (url: string, password: string) => Promise<string>;
+  useFetchGenerateRandQrWords: (
+    url: string,
+    password: string
+  ) => Promise<string>;
   // Add other properties here as needed
 }
 // const WalletContext = createContext<WalletContextType | null>(null);
@@ -39,7 +44,9 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const [words, setWords] = useState<string>("");
   const [data, setData] = useState<Record<string, any>>({});
   const [msg, setMsg] = useState<string>("");
+  const [result, setResult] = useState<string>("");
   const [randomised_qr_words, setRandomisedQrWords] = useState<string>("");
+  // const [randomised_qr_words_img, setRandomisedQrWordsImg] = useState<string>("");
   const [hidden_words, setHiddenWords] = useState<string>("");
   const [randomise_fingerprint, setRandomiseFingerprint] = useState<string>("");
 
@@ -91,7 +98,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const useFetchRandomise = async (
     url: string,
     password: string,
-    words: string[]
+    words: string[],
   ) => {
     // const [msg, setMsg] = useState("");
     setLoading(true);
@@ -107,6 +114,8 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
       setMsg(res.data.img_randomised);
       setHiddenWords(res.data.hidden_words);
       setRandomiseFingerprint(res.data.fingerprint);
+      setResult(res.data.hidden_words);
+      // setRandomisedQrWordsImg(res.data.img_qr_base64);
     } catch (error) {
       setErr(true);
     }
@@ -156,13 +165,13 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
     }
   }
 
-  const useFetchGenerateRandQrWords = async (url: string, password: string, fingerprint1: string, cardissuer: string, words: string[]) => {
+  const useFetchGenerateRandQrWords = async (url: string, password: string, fingerprint1: string, cardissuer: string, result: string) => {
     setLoading(true);
     try {
       const data: any = {
         fingerprint1: fingerprint1,
         cardissuer: cardissuer,
-        words: words,
+        result: result,
       };
       const res = await axios.post(url, data, {
         headers: {
@@ -170,7 +179,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
           "Content-Type": "application/json",
         },
       });
-      setRandomisedQrWords(res.data.img_randomised_qr_words);
+      setRandomisedQrWords(res.data.img_qr_base64);
     } catch (error) {
       setErr(true);
     }
@@ -190,6 +199,8 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         hidden_words,
         randomise_fingerprint,
         randomised_qr_words,
+        result,
+        // randomised_qr_words_img,
         useFetchXpub,
         useFetchNewallet,
         useFetchRandomise,
