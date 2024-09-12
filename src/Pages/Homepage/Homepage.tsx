@@ -166,7 +166,7 @@ function Homepage() {
 
         {/* WORDQR */}
         <div className="flex justify-between items-center mt-14">
-          <h1>WALLET 1 SEED QR</h1>
+          <h1>WALLET 1 WORDS QR</h1>
           <div className="flex items-center gap-10 _qr_flex">
             <button onClick={GetWordqr}>
               <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
