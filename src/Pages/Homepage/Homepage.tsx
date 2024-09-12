@@ -7,7 +7,7 @@ function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
-  const url: any = "https://walletqrgenerator.onrender.com";
+  const url: any = "https://btcmnemonicsqrgenerator.onrender.com";
   // const url: any = "http://127.0.0.1:5001";
 
   const {
@@ -68,11 +68,7 @@ function Homepage() {
   const GetRandomise = async () => {
     if (password == "" || cardissuer.length == 0)
       return alert("Password is required");
-    await useFetchRandomise(
-      `${url}/randomise`,
-      password,
-      words
-    );
+    await useFetchRandomise(`${url}/randomise`, password, words);
   };
 
   const GetUrlQr = async () => {
