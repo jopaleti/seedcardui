@@ -17,12 +17,14 @@ interface WalletContextType {
   randomise_fingerprint: string;
   randomised_qr_words: string;
   result: string;
+  wordqr: string;
   // randomised_qr_words_img: string;
   useFetchXpub: (url: string, password: string) => Promise<string>;
   useFetchNewallet: (url: string, password: string) => Promise<any>; // Adjust the type as needed
   useFetchRandomise: (url: string, password: string) => Promise<string>;
   useFetchGenerateWalletQr: (url: string, password: string) => Promise<string>;
   useFetchGenerateUrlQr: (url: string, password: string) => Promise<string>;
+  useFetchWordQr: (url: string, password: string, words: string[]) => Promise<string>;
   useFetchGenerateRandQrWords: (
     url: string,
     password: string
@@ -45,6 +47,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
   const [data, setData] = useState<Record<string, any>>({});
   const [msg, setMsg] = useState<string>("");
   const [result, setResult] = useState<string>("");
+  const [wordqr, setWordQr] = useState<string>("");
   const [randomised_qr_words, setRandomisedQrWords] = useState<string>("");
   // const [randomised_qr_words_img, setRandomisedQrWordsImg] = useState<string>("");
   const [hidden_words, setHiddenWords] = useState<string>("");
@@ -88,6 +91,31 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         },
       });
       setData(res.data);
+    } catch (error) {
+      setErr(true);
+    }
+    setLoading(false);
+    return data;
+  };
+
+  const useFetchWordqr = async (
+    url: string,
+    password: string,
+    words: string[]
+  ) => {
+    // const [data, setData] = useState({});
+    setLoading(true);
+    try {
+      const datax: any = {
+        words: words,
+      };
+      const res = await axios.post(url, datax, {
+        headers: {
+          Authorization: `${password}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setWordQr(res.data.img_base64);
     } catch (error) {
       setErr(true);
     }
@@ -200,6 +228,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         randomise_fingerprint,
         randomised_qr_words,
         result,
+        wordqr,
         // randomised_qr_words_img,
         useFetchXpub,
         useFetchNewallet,
@@ -207,6 +236,7 @@ export const WalletProvider: React.FC<Props> = ({ children }) => {
         useFetchGenerateWalletQr,
         useFetchGenerateUrlQr,
         useFetchGenerateRandQrWords,
+        useFetchWordqr,
       }}
     >
       {children}

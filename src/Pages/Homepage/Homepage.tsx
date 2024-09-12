@@ -7,8 +7,8 @@ function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
-  const url: any = "https://walletqrgenerator.onrender.com";
-  // const url: any = "http://127.0.0.1:5001";
+  // const url: any = "https://walletqrgenerator.onrender.com";
+  const url: any = "http://127.0.0.1:5001";
 
   const {
     url_qr,
@@ -22,16 +22,24 @@ function Homepage() {
     randomise_fingerprint,
     // randomised_qr_words_img,
     result,
+    wordqr,
     useFetchXpub,
     useFetchNewallet,
     useFetchRandomise,
     useFetchGenerateWalletQr,
     useFetchGenerateUrlQr,
     useFetchGenerateRandQrWords,
+    useFetchWordqr,
   } = useWalletContext();
 
   const handleReload = () => {
     window.location.reload();
+  };
+
+  const GetWordqr = async () => {
+    if (password == "" || cardissuer.length == 0)
+      return alert("Password is required");
+    await useFetchWordqr(`${url}/generateqr`, password, words);
   };
 
   const Getxpub = async () => {
@@ -152,6 +160,41 @@ function Homepage() {
                   xpub_qr == "" || undefined
                     ? "qr.png"
                     : `data:image/png;base64,${xpub_qr}`
+                }`}
+                alt="qr.png"
+                className="h-full w-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* WORDQR */}
+        <div className="flex justify-between items-center mt-14">
+          <h1>WALLET 1 SEED QR</h1>
+          <div className="flex items-center gap-10 _qr_flex">
+            <button onClick={GetWordqr}>
+              <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="60"
+                  height="60"
+                  fill="black"
+                  className="bi bi-play-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                </svg>
+              </div>
+            </button>
+            <div
+              style={{ width: "150px", height: "150px" }}
+              className="bg-white"
+            >
+              <img
+                src={`${
+                  wordqr == "" || undefined
+                    ? "qr.png"
+                    : `data:image/png;base64,${wordqr}`
                 }`}
                 alt="qr.png"
                 className="h-full w-full"
