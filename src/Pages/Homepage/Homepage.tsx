@@ -7,7 +7,7 @@ function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
-  const url: any = "https://btcmnemonicsqrgenerator.onrender.com";
+  const url: any = "https://mnemonicsqrgenerator-898c7d86ee58.herokuapp.com";
   // const url: any = "http://127.0.0.1:5001";
 
   const {
