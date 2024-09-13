@@ -8,7 +8,6 @@ function Homepage() {
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
   const url: any = "https://mnemonicsqrgenerator-898c7d86ee58.herokuapp.com";
-  // const url: any = "http://127.0.0.1:5001";
 
   const {
     url_qr,
