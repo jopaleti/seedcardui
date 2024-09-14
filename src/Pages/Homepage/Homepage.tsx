@@ -7,7 +7,8 @@ function Homepage() {
   const [password, setPassword] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cardissuer, setCardIssuer] = useState("");
-  const url: any = "https://mnemonicsqrgenerator-898c7d86ee58.herokuapp.com";
+  const url: any =
+    "https://seedcardmnemonicsgenerator-a9fd4fca1e25.herokuapp.com";
 
   const {
     url_qr,
